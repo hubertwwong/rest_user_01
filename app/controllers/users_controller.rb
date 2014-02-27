@@ -1,27 +1,32 @@
 class UsersController < ApplicationController
 
+  # skips csrf token
+  skip_before_filter  :verify_authenticity_token
+
   respond_to :json
 
   def create
     @user = User.new(user_params)
+    @user.save
+    respond_with(@user)
   end
 
   def destroy
     @user = User.find(params[:id])
   end
 
-  def edit
-    @user = User.find(params[:id])
-  end
+  #def edit
+  #  @user = User.find(params[:id])
+  #end
 
   def index
     @users = User.all
     respond_with(@users)
   end
 
-  def new
-    @user = User.new
-  end
+  #def new
+  #  @user = User.new
+  #end
   
   def update
     @user = User.find(params[:id])
